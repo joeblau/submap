@@ -1,0 +1,13 @@
+tap "xcodesorg/made"
+
+# Install Xcodes - https://github.com/XcodesOrg/xcodes
+brew "xcodes"
+
+# Install XcodeGen - https://github.com/yonaskolb/XcodeGen
+brew "xcodegen"
+
+# Install SwiftLint - https://github.com/realm/SwiftLint
+brew "swiftlint"
+
+# Install SwiftFormat - https://github.com/nicklockwood/SwiftFormat
+brew "swiftformat"
