@@ -5,7 +5,7 @@ import SwiftUI
 
 struct CameraView: View {
     @Environment(\.camera) private var camera
-    
+
     @State private var viewfinderImage: Image?
 
     var body: some View {

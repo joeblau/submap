@@ -1,9 +1,5 @@
-//
-//  CIImage+.swift
-//  Submap
-//
-//  Created by Joe Blau on 11/9/23.
-//
+// CIImage+.swift
+// Copyright (c) 2024 Submap
 
 import CoreImage
 import SwiftUI
@@ -11,7 +7,7 @@ import SwiftUI
 extension CIImage {
     var image: Image? {
         let ciContext = CIContext()
-        guard let cgImage = ciContext.createCGImage(self, from: self.extent) else { return nil }
+        guard let cgImage = ciContext.createCGImage(self, from: extent) else { return nil }
         return Image(decorative: cgImage, scale: 1, orientation: .up)
     }
 }

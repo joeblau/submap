@@ -6,7 +6,7 @@ import SwiftUI
 
 struct MapView: View {
     @Environment(\.location) private var location
-    
+
     @State var isWeatherPresented: Bool = false
     @State var canZoom = false
     @State var position: MapCameraPosition = .camera(MapCamera(centerCoordinate: .init(),
@@ -35,18 +35,17 @@ struct MapView: View {
             try? await Task.sleep(nanoseconds: UInt64(2.0 * 1_000_000_000))
             canZoom = true
             updateView()
-            
         }
-        .onChange(of: location.currentLocation, { oldValue, newValue in
-            guard newValue != .init() && canZoom else { return }
+        .onChange(of: location.currentLocation) { _, newValue in
+            guard newValue != .init(), canZoom else { return }
             updateView()
-        })
+        }
     }
-    
+
     func updateView() {
         withAnimation {
             position = .camera(MapCamera(centerCoordinate: location.currentLocation.coordinate,
-                                         distance: 1_000))
+                                         distance: 1000))
         }
     }
 }

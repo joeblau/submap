@@ -6,7 +6,7 @@ import SwiftUI
 struct SubmapView: View {
     @Environment(\.location) var location
     @Environment(\.camera) var camera
-    
+
     @FocusState private var keyboardFocused: Bool
     @State var text: String = ""
     @State private var isResponsePresented: Bool = false
@@ -56,8 +56,9 @@ struct SubmapView: View {
                 .ignoresSafeArea(.keyboard)
         }
         .onAppear(perform: {
-            if (!location.isOn
-                || !camera.isOn) {
+            if !location.isOn
+                || !camera.isOn
+            {
                 isOnboardPresented = true
             }
             location.start()

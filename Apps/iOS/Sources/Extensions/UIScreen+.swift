@@ -1,14 +1,9 @@
-//
-//  UIScreen+.swift
-//  Submap
-//
-//  Created by Joe Blau on 11/9/23.
-//
+// UIScreen+.swift
+// Copyright (c) 2024 Submap
 
 import UIKit
 
 extension UIScreen {
-
     var orientation: UIDeviceOrientation {
         let point = coordinateSpace.convert(CGPoint.zero, to: fixedCoordinateSpace)
         if point == CGPoint.zero {
@@ -16,9 +11,9 @@ extension UIScreen {
         } else if point.x != 0 && point.y != 0 {
             return .portraitUpsideDown
         } else if point.x == 0 && point.y != 0 {
-            return .landscapeRight //.landscapeLeft
+            return .landscapeRight // .landscapeLeft
         } else if point.x != 0 && point.y == 0 {
-            return .landscapeLeft //.landscapeRight
+            return .landscapeLeft // .landscapeRight
         } else {
             return .unknown
         }
