@@ -7,14 +7,14 @@ struct NetworkView: View {
     var body: some View {
         Menu {
             Section("Tesla") {
-                Text("69% Battery")
+                Button("69% Battery", action: {})
             }
             Divider()
             Section("Weather") {
-                Text("54℉ Sunny")
+                Button("54℉ Sunny", action: {})
             }
         } label: {
-            Image(systemName: "network")
+            Image(systemName: "server.rack")
         }
         .buttonStyle(MaterialButtonStyle(active: .constant(false)))
     }

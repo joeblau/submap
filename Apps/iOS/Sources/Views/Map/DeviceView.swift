@@ -7,18 +7,18 @@ struct DeviceView: View {
     var body: some View {
         Menu {
             Section("iPhone") {
-                Text("Stationary")
+                Button("WiFi Enabled", action: {})
             }
             Divider()
             Section("Apple Watch") {
-                Text("55 bpm")
+                Button("55 bpm Heart Rate", action: {})
             }
             Divider()
             Section("Mac") {
-                Text("55 bpm")
+                Button("Locked", action: {})
             }
         } label: {
-            Image(systemName: "iphone")
+            Image(systemName: "macbook.and.iphone")
         }
         .buttonStyle(MaterialButtonStyle(active: .constant(false)))
     }

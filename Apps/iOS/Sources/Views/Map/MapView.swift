@@ -5,6 +5,10 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
+    @Environment(\.location) private var location
+    
+    @State var isWeatherPresented: Bool = false
+    @State var canZoom = false
     @State var position: MapCameraPosition = .camera(MapCamera(centerCoordinate: .init(),
                                                                distance: 100_000_000))
     var body: some View {
@@ -27,6 +31,23 @@ struct MapView: View {
             }.padding()
         }
         .frame(height: 300)
+        .task {
+            try? await Task.sleep(nanoseconds: UInt64(2.0 * 1_000_000_000))
+            canZoom = true
+            updateView()
+            
+        }
+        .onChange(of: location.currentLocation, { oldValue, newValue in
+            guard newValue != .init() && canZoom else { return }
+            updateView()
+        })
+    }
+    
+    func updateView() {
+        withAnimation {
+            position = .camera(MapCamera(centerCoordinate: location.currentLocation.coordinate,
+                                         distance: 1_000))
+        }
     }
 }
 
