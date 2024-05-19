@@ -35,9 +35,7 @@ struct SubmapView: View {
                                 Image(systemName: "arrow.triangle.2.circlepath.camera.fill")
                             }
                         }.padding()
-                        Rectangle()
-                            .fill(.green)
-                            .frame(height: 300)
+                        MapView()
                     }
                 }
                 .toolbar(content: {
