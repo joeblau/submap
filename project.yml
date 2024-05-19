@@ -16,13 +16,13 @@ targets:
     type: application
     platform: iOS
     sources:
-      - path: Apps/Submap
+      - path: Apps/iOS
         excludes:
-          - Apps/Submap/PreviewContent/*
-      - path: Apps/Submap/Resources/
+          - Apps/iOS/PreviewContent/*
+      - path: Apps/iOS/Resources/
         buildPhase: resources
     settings:
-      DEVELOPMENT_ASSET_PATHS: Apps/Submap/PreviewContent
+      DEVELOPMENT_ASSET_PATHS: Apps/iOS/PreviewContent
       PRODUCT_BUNDLE_IDENTIFIER: com.joeblau.Submap
       SUPPORTED_PLATFORMS: [iphoneos, iphonesimulator]
       TARGETED_DEVICE_FAMILY: 1
@@ -35,7 +35,7 @@ targets:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: Tests/SubmapTests
+      - path: Tests/Unit
     dependencies:
       - target: Submap
         embed: true
@@ -43,7 +43,7 @@ targets:
     type: bundle.ui-testing
     platform: iOS
     sources:
-      - path: Tests/SubmapUITests
+      - path: Tests/UI
     dependencies:
       - target: Submap
         embed: true
