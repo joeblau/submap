@@ -8,6 +8,7 @@ struct SubmapApp: App {
     var body: some Scene {
         WindowGroup {
             SubmapView()
+                .preferredColorScheme(.dark)
         }
     }
 }
