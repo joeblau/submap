@@ -17,10 +17,9 @@ struct SettingsView: View {
     @State var automobile = false
 
     var body: some View {
-        
         @Bindable var location = location
         @Bindable var camera = camera
-        
+
         NavigationView {
             Form {
                 Section {
@@ -96,17 +95,17 @@ struct SettingsView: View {
                     Label("Remove Devices", systemImage: "server.rack")
                 }
             }
-            .onChange(of: location.isOn, { oldValue, newValue in
+            .onChange(of: location.isOn) { _, newValue in
                 guard newValue == true else { return }
                 location.requestAccess()
-            })
-            .onChange(of: camera.isOn, { oldValue, newValue in
+            }
+            .onChange(of: camera.isOn) { _, newValue in
                 guard newValue == true else { return }
                 Task {
                     guard await camera.checkAuthorization() else { return }
                     await camera.start()
                 }
-            })
+            }
             .headerProminence(.increased)
             .safeAreaInset(edge: .bottom, alignment: .center, spacing: 0) {
                 VStack(spacing: 32) {
