@@ -26,7 +26,6 @@ struct MapView: View {
                 }
             }.padding()
         }
-        .preferredColorScheme(.dark)
         .frame(height: 300)
     }
 }
