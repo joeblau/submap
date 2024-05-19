@@ -8,14 +8,13 @@ struct SubmapView: View {
     @State var text: String = ""
     @State private var isResponsePresented: Bool = false
     @State private var isOnboardPresented: Bool = false
-    
+
     var body: some View {
         NavigationStack {
-            Rectangle()
-                .fill(.blue)
+            CameraView()
                 .overlay {}
                 .safeAreaInset(edge: .bottom, alignment: .center, spacing: 0) {
-                    VStack(spacing: 0){
+                    VStack(spacing: 0) {
                         HStack(alignment: .bottom) {
                             Button {} label: {
                                 Image(systemName: "switch.2")
