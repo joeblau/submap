@@ -10,7 +10,14 @@ options:
   createIntermediateGroups: true
   preGenCommand: .github/scripts/pre.sh
   postGenCommand: .github/scripts/post.sh
-
+schemes:
+  MyScheme:
+    build:
+      targets:
+        Submap: all
+    run:
+      environmentVariables:
+        IDEPreferLogStreaming: YES
 targets:
   Submap:
     type: application
@@ -31,19 +38,13 @@ targets:
       GENERATE_INFOPLIST_FILE: true
       IDEPreferLogStreaming: true
       VALIDATE_WORKSPACE: true
-  SubmapTests:
+  UnitTests:
     type: bundle.unit-test
     platform: iOS
     sources:
       - path: Tests/Unit
-    dependencies:
-      - target: Submap
-        embed: true
-  SubmapUITests:
+  UITests:
     type: bundle.ui-testing
     platform: iOS
     sources:
       - path: Tests/UI
-    dependencies:
-      - target: Submap
-        embed: true

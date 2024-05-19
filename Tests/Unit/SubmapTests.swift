@@ -2,7 +2,7 @@
 // Copyright (c) 2024 Submap
 
 import XCTest
-@testable import Submap
+@testable import iOS
 
 final class SubmapTests: XCTestCase {
     override func setUpWithError() throws {
