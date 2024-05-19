@@ -1,12 +1,8 @@
-//
-//  MapView.swift
-//  Submap
-//
-//  Created by Joe Blau on 5/18/24.
-//
+// MapView.swift
+// Copyright (c) 2024 Submap
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct MapView: View {
     @State var position: MapCameraPosition = .camera(MapCamera(centerCoordinate: .init(),
