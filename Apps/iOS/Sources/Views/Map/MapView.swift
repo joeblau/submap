@@ -14,21 +14,9 @@ struct MapView: View {
                 .mapControlVisibility(.hidden)
             HStack(alignment: .top) {
                 VStack {
-                    Button {} label: {
-                        Image(systemName: "figure.arms.open")
-                    }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
-                    
-                    Button {} label: {
-                        Image(systemName: "iphone")
-                    }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
-
-                    Button {} label: {
-                        Image(systemName: "network")
-                    }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
-                    
-                    Button {} label: {
-                        Image(systemName: "cloud.sun")
-                    }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
+                    HumanView()
+                    DeviceView()
+                    NetworkView()
                 }
                 Spacer()
                 VStack {
@@ -38,6 +26,7 @@ struct MapView: View {
                 }
             }.padding()
         }
+        .preferredColorScheme(.dark)
         .frame(height: 300)
     }
 }
