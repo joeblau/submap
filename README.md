@@ -13,4 +13,7 @@ cd submap
 
 # Bootstrap Project Dependencies
 brew bundle --file=./.github/Brewfile
+
+# Start Project
+xcodegen
 ```
