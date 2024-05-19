@@ -17,7 +17,6 @@ struct CameraView: View {
                                height: UIScreen.main.bounds.height - 300)
                         .fixedSize()
                 }
-                
             }
             .disabled(true)
         }
