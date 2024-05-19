@@ -4,16 +4,23 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State var location = false
+    @Environment(\.dismiss) var dismiss
+
+    @Environment(\.location) var location
+    @Environment(\.camera) var camera
+
     @State var motionActivity = false
     @State var health = false
-    @State var camera = false
     @State var microphone = false
     @State var appleWatch = false
     @State var macbook = false
     @State var automobile = false
 
     var body: some View {
+        
+        @Bindable var location = location
+        @Bindable var camera = camera
+        
         NavigationView {
             Form {
                 Section {
@@ -25,10 +32,10 @@ struct SettingsView: View {
                                 .labelStyle(SettingLabelStyle(fill: Color.blue.gradient))
                         }
                     }
-                    Toggle(isOn: $location, label: {
+                    Toggle(isOn: $location.isOn, label: {
                         Label("Location", systemImage: "location.fill")
                             .labelStyle(SettingLabelStyle(fill: Color.cyan.gradient))
-                    }).disabled(true)
+                    })
                     Toggle(isOn: $motionActivity, label: {
                         Label("Motion Activity", systemImage: "figure.walk.motion")
                             .labelStyle(SettingLabelStyle(fill: Color.teal.gradient))
@@ -42,10 +49,10 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    Toggle(isOn: $camera, label: {
+                    Toggle(isOn: $camera.isOn, label: {
                         Label("Camera", systemImage: "camera.fill")
                             .labelStyle(SettingLabelStyle(fill: Color.green.gradient))
-                    }).disabled(true)
+                    })
                     Toggle(isOn: $microphone, label: {
                         Label("Microphone", systemImage: "mic.fill").labelStyle(SettingLabelStyle(fill: Color.yellow.gradient))
                     }).disabled(true)
@@ -57,25 +64,56 @@ struct SettingsView: View {
                             .labelStyle(SettingLabelStyle(fill: Color.red.gradient))
                     }).disabled(true)
                 } header: {
-                    Label("Device", systemImage: "iphone")
+                    Label("My Devices", systemImage: "macbook.and.iphone")
                 }
 
                 Section {
-                    Toggle(isOn: $automobile, label: {
-                        Label("Automobile", systemImage: "car.fill")
-                            .labelStyle(SettingLabelStyle(fill: Color.pink.gradient))
-                    }).disabled(true)
+                    Button {} label: {
+                        LabeledContent {
+                            Text("Tesla")
+                        } label: {
+                            Label("Automobile", systemImage: "car.fill")
+                                .labelStyle(SettingLabelStyle(fill: Color.pink.gradient))
+                        }
+                    }.disabled(true)
+                    Button {} label: {
+                        LabeledContent {
+                            Text("HomeKit")
+                        } label: {
+                            Label("Home", systemImage: "house.fill")
+                                .labelStyle(SettingLabelStyle(fill: Color.purple.gradient))
+                        }
+                    }.disabled(true)
+                    Button {} label: {
+                        LabeledContent {
+                            Text("ChatGPT")
+                        } label: {
+                            Label("LLM", systemImage: "brain.fill")
+                                .labelStyle(SettingLabelStyle(fill: Color.indigo.gradient))
+                        }
+                    }.disabled(true)
                 } header: {
-                    Label("Network", systemImage: "network")
+                    Label("Remove Devices", systemImage: "server.rack")
                 }
             }
+            .onChange(of: location.isOn, { oldValue, newValue in
+                guard newValue == true else { return }
+                location.requestAccess()
+            })
+            .onChange(of: camera.isOn, { oldValue, newValue in
+                guard newValue == true else { return }
+                Task {
+                    guard await camera.checkAuthorization() else { return }
+                    await camera.start()
+                }
+            })
             .headerProminence(.increased)
             .safeAreaInset(edge: .bottom, alignment: .center, spacing: 0) {
                 VStack(spacing: 32) {
                     Text(Image(systemName: "info.circle.fill")).foregroundStyle(.blue.gradient) + Text(" This data is packaged up and sent to ChatGPT to serve you. If you're not comfortable with that, please delete the app.")
                         .font(.system(.subheadline, design: .rounded, weight: .semibold))
                     Button {
-//                        dismiss()
+                        dismiss()
                     } label: {
                         Text("Let's Go").frame(maxWidth: .infinity)
                     }.buttonStyle(.borderedProminent).controlSize(.large)

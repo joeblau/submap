@@ -4,6 +4,9 @@
 import SwiftUI
 
 struct SubmapView: View {
+    @Environment(\.location) var location
+    @Environment(\.camera) var camera
+    
     @FocusState private var keyboardFocused: Bool
     @State var text: String = ""
     @State private var isResponsePresented: Bool = false
@@ -40,19 +43,28 @@ struct SubmapView: View {
                     }
                 }
                 .toolbar(content: {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button {} label: {
-                            Image(systemName: "eraser.fill")
-                        }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
-                    }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        ProgressView()
-                    }
+//                    ToolbarItem(placement: .topBarLeading) {
+//                        Button {} label: {
+//                            Image(systemName: "eraser.fill")
+//                        }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
+//                    }
+//                    ToolbarItem(placement: .topBarTrailing) {
+//                        ProgressView()
+//                    }
                 })
                 .toolbarBackground(.hidden, for: .navigationBar)
                 .ignoresSafeArea(.keyboard)
         }
-        .background(.black)
+        .onAppear(perform: {
+            if (!location.isOn
+                || !camera.isOn) {
+                isOnboardPresented = true
+            }
+            location.start()
+        })
+        .fullScreenCover(isPresented: $isOnboardPresented, content: {
+            SettingsView()
+        })
     }
 }
 

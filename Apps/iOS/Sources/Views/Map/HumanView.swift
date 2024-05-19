@@ -7,12 +7,13 @@ struct HumanView: View {
     var body: some View {
         Menu {
             Section("Human") {
-                Text("Joe Blau")
-                Text("Male")
+                Button("Joe Blau", action: {})
+                Button("Male", action: {})
             }
             Section("Location") {
-                Text("San Francisco")
-                Text("USA")
+                Button("San Francisco", action: {})
+                Button("Califorina", action: {})
+                Button("United States", action: {})
             }
         } label: {
             Image(systemName: "figure.arms.open")
