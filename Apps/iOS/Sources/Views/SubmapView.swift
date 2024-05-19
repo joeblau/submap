@@ -18,10 +18,12 @@ struct SubmapView: View {
                         HStack(alignment: .bottom) {
                             Button {} label: {
                                 Image(systemName: "switch.2")
-                            }
+                            }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
                             Button {} label: {
-                                Image(systemName: "wand.and.stars")
+                                Image(systemName: "brain.fill")
+                                    .frame(maxWidth: .infinity)
                             }
+                            .buttonStyle(MaterialButtonStyle(active: .constant(false)))
                             Button {
                                 withAnimation { keyboardFocused.toggle() }
                             } label: {
@@ -29,10 +31,10 @@ struct SubmapView: View {
                                     Image(systemName: "keyboard.fill")
                                     Image(systemName: "hand.draw.fill")
                                 }
-                            }
+                            }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
                             Button {} label: {
                                 Image(systemName: "arrow.triangle.2.circlepath.camera.fill")
-                            }
+                            }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
                         }.padding()
                         MapView()
                     }
@@ -40,8 +42,8 @@ struct SubmapView: View {
                 .toolbar(content: {
                     ToolbarItem(placement: .topBarLeading) {
                         Button {} label: {
-                            Image(systemName: "trash.fill")
-                        }
+                            Image(systemName: "eraser.fill")
+                        }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         ProgressView()
