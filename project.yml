@@ -1,0 +1,49 @@
+name: Submap
+settings:
+  DEVELOPMENT_TEAM: K78G42H4U2
+  CURRENT_PROJECT_VERSION: 1
+  MARKETING_VERSION: 0.0.1
+options:
+  bundleIdPrefix: com.joeblau
+  deploymentTarget:
+    iOS: "17.5"
+  createIntermediateGroups: true
+  preGenCommand: .github/scripts/pre.sh
+  postGenCommand: .github/scripts/post.sh
+
+targets:
+  Submap:
+    type: application
+    platform: iOS
+    sources:
+      - path: Apps/Submap
+        excludes:
+          - Apps/Submap/PreviewContent/*
+      - path: Apps/Submap/Resources/
+        buildPhase: resources
+    settings:
+      DEVELOPMENT_ASSET_PATHS: Apps/Submap/PreviewContent
+      PRODUCT_BUNDLE_IDENTIFIER: com.joeblau.Submap
+      SUPPORTED_PLATFORMS: [iphoneos, iphonesimulator]
+      TARGETED_DEVICE_FAMILY: 1
+      SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: false
+      INFOPLIST_KEY_UILaunchScreen_Generation: true
+      GENERATE_INFOPLIST_FILE: true
+      IDEPreferLogStreaming: true
+      VALIDATE_WORKSPACE: true
+  SubmapTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests/SubmapTests
+    dependencies:
+      - target: Submap
+        embed: true
+  SubmapUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: Tests/SubmapUITests
+    dependencies:
+      - target: Submap
+        embed: true

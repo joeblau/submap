@@ -1,14 +1,9 @@
-//
-//  SubmapUITestsLaunchTests.swift
-//  SubmapUITests
-//
-//  Created by Joe Blau on 5/18/24.
-//
+// SubmapUITestsLaunchTests.swift
+// Copyright (c) 2024 Submap
 
 import XCTest
 
 final class SubmapUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }

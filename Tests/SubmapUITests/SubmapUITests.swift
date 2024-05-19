@@ -1,14 +1,9 @@
-//
-//  SubmapUITests.swift
-//  SubmapUITests
-//
-//  Created by Joe Blau on 5/18/24.
-//
+// SubmapUITests.swift
+// Copyright (c) 2024 Submap
 
 import XCTest
 
 final class SubmapUITests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
