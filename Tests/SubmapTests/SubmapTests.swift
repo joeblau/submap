@@ -1,15 +1,10 @@
-//
-//  SubmapTests.swift
-//  SubmapTests
-//
-//  Created by Joe Blau on 5/18/24.
-//
+// SubmapTests.swift
+// Copyright (c) 2024 Submap
 
 import XCTest
 @testable import Submap
 
 final class SubmapTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -28,9 +23,8 @@ final class SubmapTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

@@ -4,12 +4,13 @@ Open-source iOS multi-modal agent
 
 ## Developer Setup
 
-```sh
-# Install Homebrew
+Prerequisites: [Homebrew](https://brew.sh)
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```sh
+# Clone repository
+git clone https://github.com/joeblau/submap.git
+cd submap
 
 # Bootstrap Project Dependencies
-
 brew bundle --file=./.github/Brewfile
 ```

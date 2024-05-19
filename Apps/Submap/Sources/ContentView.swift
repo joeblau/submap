@@ -1,9 +1,5 @@
-//
-//  ContentView.swift
-//  Submap
-//
-//  Created by Joe Blau on 5/18/24.
-//
+// ContentView.swift
+// Copyright (c) 2024 Submap
 
 import SwiftUI
 
