@@ -77,7 +77,7 @@ extension CNContact {
     }
 
     var fullName: String {
-        givenName.uppercased() + " " + familyName.uppercased()
+        givenName + " " + familyName
     }
 
     var initialsText: Text {
