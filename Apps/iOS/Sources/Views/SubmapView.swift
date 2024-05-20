@@ -28,8 +28,7 @@ struct SubmapView: View {
                             Button {} label: {
                                 Image(systemName: "brain.fill")
                                     .frame(maxWidth: .infinity)
-                            }
-                            .buttonStyle(MaterialButtonStyle(active: .constant(false)))
+                            }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
                             Button {
                                 withAnimation { keyboardFocused.toggle() }
                             } label: {

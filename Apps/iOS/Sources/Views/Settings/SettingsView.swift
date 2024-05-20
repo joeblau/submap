@@ -6,10 +6,11 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.location) var location
+    @Environment(\.contacts) var contacts
     @Environment(\.camera) var camera
 
-    @State private var isOnboardPresented: Bool = false
-
+    @State private var isContactPickerPresented: Bool = false
+    
     @State var motionActivity = false
     @State var health = false
     @State var microphone = false
@@ -19,18 +20,22 @@ struct SettingsView: View {
 
     var body: some View {
         @Bindable var location = location
+        @Bindable var contacts = contacts
         @Bindable var camera = camera
 
         NavigationView {
             Form {
                 Section {
-                    Button {} label: {
-                        LabeledContent {
-                            Text("Joe Blau")
-                        } label: {
-                            Label("Contact", systemImage: "person.text.rectangle.fill")
-                                .labelStyle(SettingLabelStyle(fill: Color.blue.gradient))
+                    LabeledContent {
+                        Button { isContactPickerPresented = true } label: {
+                            switch contacts.selected {
+                            case let .some(selected): Text(selected.fullName)
+                            case .none: Text("Find your contact")
+                            }
                         }
+                    } label: {
+                        Label("Contact", systemImage: "person.text.rectangle.fill")
+                            .labelStyle(SettingLabelStyle(fill: Color.blue.gradient))
                     }
                     Toggle(isOn: $location.isOn, label: {
                         Label("Location", systemImage: "location.fill")
@@ -107,6 +112,9 @@ struct SettingsView: View {
                     await camera.start()
                 }
             }
+            .sheet(isPresented: $isContactPickerPresented) {
+                ContactPicker(selectedContact: $contacts.selected)
+            }
             .headerProminence(.increased)
             .safeAreaInset(edge: .bottom, alignment: .center, spacing: 0) {
                 VStack(spacing: 32) {
@@ -124,9 +132,6 @@ struct SettingsView: View {
             .toolbarTitleDisplayMode(.inlineLarge)
             .navigationTitle("Settings")
         }
-        .fullScreenCover(isPresented: $isOnboardPresented, content: {
-            SettingsView()
-        })
     }
 }
 
