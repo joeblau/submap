@@ -18,7 +18,7 @@ struct HumanView: View {
                     List {
                         if let selectedContact = contacts.selected {
                             Section("Me") {
-                                ForEach(selectedContact.data.sorted(by: >), id: \.key) { key, value in
+                                ForEach(selectedContact.data.sorted(by: <), id: \.key) { key, value in
                                     LabeledContent(key, value: value)
                                 }
                             }
@@ -26,14 +26,14 @@ struct HumanView: View {
 
                         if let placemark = location.placemark {
                             Section("Placemark") {
-                                ForEach(placemark.data.sorted(by: >), id: \.key) { key, value in
+                                ForEach(placemark.data.sorted(by: <), id: \.key) { key, value in
                                     LabeledContent(key, value: value)
                                 }
                             }
                         }
 
                         Section("Location") {
-                            ForEach(location.currentLocation.data.sorted(by: >), id: \.key) { key, value in
+                            ForEach(location.currentLocation.data.sorted(by: <), id: \.key) { key, value in
                                 LabeledContent(key, value: value)
                             }
                         }
@@ -41,7 +41,7 @@ struct HumanView: View {
                         Section("Calendars") {
                             ForEach(events.calendars.dataList, id: \.self) { data in
                                 Group {
-                                    ForEach(data.sorted(by: >), id: \.key) { key, value in
+                                    ForEach(data.sorted(by: <), id: \.key) { key, value in
                                         LabeledContent(key, value: value)
                                     }
                                 }
@@ -51,7 +51,7 @@ struct HumanView: View {
                         Section("Calendar Events") {
                             ForEach(events.calendarEvents.dataList, id: \.self) { data in
                                 Group {
-                                    ForEach(data.sorted(by: >), id: \.key) { key, value in
+                                    ForEach(data.sorted(by: <), id: \.key) { key, value in
                                         LabeledContent(key, value: value)
                                     }
                                 }
@@ -61,7 +61,7 @@ struct HumanView: View {
                         Section("Reminders") {
                             ForEach(events.reminders.dataList, id: \.self) { data in
                                 Group {
-                                    ForEach(data.sorted(by: >), id: \.key) { key, value in
+                                    ForEach(data.sorted(by: <), id: \.key) { key, value in
                                         LabeledContent(key, value: value)
                                     }
                                 }
