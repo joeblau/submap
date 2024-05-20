@@ -22,7 +22,7 @@ struct HumanView: View {
                                 }
                             }
                         }
-                        
+
                         if let placemark = location.placemark {
                             Section("Placemark") {
                                 ForEach(placemark.data.sorted(by: >), id: \.key) { key, value in

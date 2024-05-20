@@ -1,12 +1,8 @@
-//
-//  Contacts.swift
-//  Submap
-//
-//  Created by Joe Blau on 5/20/24.
-//
+// Contacts.swift
+// Copyright (c) 2024 Submap
 
-import SwiftUI
 import Contacts
+import SwiftUI
 
 @Observable class Contacts {
     static var SETTING_CONTACT = "setting-contact"
