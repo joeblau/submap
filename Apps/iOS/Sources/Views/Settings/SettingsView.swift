@@ -5,9 +5,10 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
-
     @Environment(\.location) var location
     @Environment(\.camera) var camera
+
+    @State private var isOnboardPresented: Bool = false
 
     @State var motionActivity = false
     @State var health = false
@@ -123,6 +124,9 @@ struct SettingsView: View {
             .toolbarTitleDisplayMode(.inlineLarge)
             .navigationTitle("Settings")
         }
+        .fullScreenCover(isPresented: $isOnboardPresented, content: {
+            SettingsView()
+        })
     }
 }
 
