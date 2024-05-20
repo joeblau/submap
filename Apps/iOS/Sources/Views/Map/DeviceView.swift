@@ -15,7 +15,13 @@ struct DeviceView: View {
                 NavigationStack {
                     List {
                         Section("Device") {
-                            ForEach(UIDevice.current.data.sorted(by: >), id: \.key) { key, value in
+                            ForEach(UIDevice.current.data.sorted(by: <), id: \.key) { key, value in
+                                LabeledContent(key, value: value)
+                            }
+                        }
+                        
+                        Section("Calendar") {
+                            ForEach(Calendar.current.data.sorted(by: <), id: \.key) { key, value in
                                 LabeledContent(key, value: value)
                             }
                         }
