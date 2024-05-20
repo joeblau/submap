@@ -4,6 +4,19 @@
 import EventKit
 import SwiftUI
 
+extension Array where Element: EKReminder {
+    var dataList: [[String: String]] {
+        map { $0.data }
+    }
+
+    var prompt: String {
+        """
+        # My Reminders
+        \(map { $0.prompt })
+        """
+    }
+}
+
 extension EKReminder: Structurable {
     var data: [String: String] {
         var reminderInfo: [String: String] = .init()
@@ -22,6 +35,9 @@ extension EKReminder: Structurable {
     }
 
     var prompt: String {
-        data.renderedAsFacts
+        """
+        ## Reminder
+        \(data.renderedAsFacts)
+        """
     }
 }

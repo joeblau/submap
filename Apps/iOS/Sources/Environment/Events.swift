@@ -4,7 +4,7 @@
 import EventKit
 import SwiftUI
 
-@Observable class Events {
+@Observable class Events: NSObject {
     static var SETTING_EVENTS_CALENDAR = "setting-events-calendar"
     static var SETTING_EVENTS_REMINDER = "setting-events-reminder"
     var isCalendarOn: Bool = UserDefaults.standard.bool(forKey: Events.SETTING_EVENTS_CALENDAR) {
@@ -21,13 +21,30 @@ import SwiftUI
 
     let eventStore = EKEventStore()
     var calendars: [EKCalendar] = .init()
+    var calendarEvents: [EKEvent] = .init()
     var reminders: [EKReminder] = .init()
+
+    override init() {
+        super.init()
+
+        switch EKEventStore.authorizationStatus(for: .event) {
+        case .notDetermined, .restricted, .denied: print("no calendar access")
+        case .fullAccess, .writeOnly: loadCalendars()
+        @unknown default: print("no calendar access")
+        }
+
+        switch EKEventStore.authorizationStatus(for: .reminder) {
+        case .notDetermined, .restricted, .denied: print("no reminder access")
+        case .fullAccess, .writeOnly: loadReminders()
+        @unknown default: print("no reminder access")
+        }
+    }
 
     func requestEventAccess() {
         eventStore.requestFullAccessToEvents { granted, _ in
             switch granted {
             case true:
-                self.calendars = self.eventStore.calendars(for: .event)
+                self.loadCalendars()
             case false:
                 self.isCalendarOn = false
                 print("no calendar access")
@@ -38,17 +55,31 @@ import SwiftUI
     func requestReminderAccess() {
         eventStore.requestFullAccessToReminders { granted, _ in
             switch granted {
-            case true:
-                let remindersPredicate = self.eventStore.predicateForReminders(in: nil)
-                self.eventStore.fetchReminders(matching: remindersPredicate) { reminders in
-                    switch reminders {
-                    case let .some(reminders): self.reminders = reminders
-                    case .none:
-                        self.isReminderOn = false
-                        print("no reminder access")
-                    }
-                }
+            case true: self.loadReminders()
             case false: print("no access")
+            }
+        }
+    }
+
+    func loadCalendars() {
+        calendars = eventStore.calendars(for: .event)
+
+        let startDate = Calendar.current.startOfDay(for: Date())
+        let endDate = Calendar.current.date(byAdding: .day, value: 7, to: startDate)
+
+        guard let endDate else { return }
+
+        let predicate = eventStore.predicateForEvents(withStart: startDate, end: endDate, calendars: calendars)
+
+        calendarEvents = eventStore.events(matching: predicate)
+    }
+
+    func loadReminders() {
+        let remindersPredicate = eventStore.predicateForReminders(in: nil)
+        eventStore.fetchReminders(matching: remindersPredicate) { reminders in
+            switch reminders {
+            case let .some(reminders): self.reminders = reminders
+            case .none: print("no reminders")
             }
         }
     }
