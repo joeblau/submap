@@ -4,6 +4,19 @@
 import EventKit
 import SwiftUI
 
+extension Array where Element: EKCalendar {
+    var dataList: [[String: String]] {
+        map { $0.data }
+    }
+
+    var prompt: String {
+        """
+        # My Calendars
+        \(map { $0.prompt })
+        """
+    }
+}
+
 extension EKCalendar: Structurable {
     var data: [String: String] {
         [
@@ -17,7 +30,10 @@ extension EKCalendar: Structurable {
     }
 
     var prompt: String {
-        data.renderedAsFacts
+        """
+        ## Calendar
+        \(data.renderedAsFacts)
+        """
     }
 }
 

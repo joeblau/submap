@@ -21,7 +21,7 @@ extension EKParticipant: Structurable {
 
     var prompt: String {
         """
-        # Participant
+        ## Participant
         \(data.renderedAsFacts)
         """
     }

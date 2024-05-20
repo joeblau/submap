@@ -7,6 +7,7 @@ struct HumanView: View {
     @State private var showPopover = false
     @Environment(\.location) var location
     @Environment(\.contacts) var contacts
+    @Environment(\.events) var events
 
     var body: some View {
         Button { self.showPopover = true } label: {
@@ -34,6 +35,36 @@ struct HumanView: View {
                         Section("Location") {
                             ForEach(location.currentLocation.data.sorted(by: >), id: \.key) { key, value in
                                 LabeledContent(key, value: value)
+                            }
+                        }
+
+                        Section("Calendars") {
+                            ForEach(events.calendars.dataList, id: \.self) { data in
+                                Group {
+                                    ForEach(data.sorted(by: >), id: \.key) { key, value in
+                                        LabeledContent(key, value: value)
+                                    }
+                                }
+                            }
+                        }
+
+                        Section("Calendar Events") {
+                            ForEach(events.calendarEvents.dataList, id: \.self) { data in
+                                Group {
+                                    ForEach(data.sorted(by: >), id: \.key) { key, value in
+                                        LabeledContent(key, value: value)
+                                    }
+                                }
+                            }
+                        }
+
+                        Section("Reminders") {
+                            ForEach(events.reminders.dataList, id: \.self) { data in
+                                Group {
+                                    ForEach(data.sorted(by: >), id: \.key) { key, value in
+                                        LabeledContent(key, value: value)
+                                    }
+                                }
                             }
                         }
                     }
