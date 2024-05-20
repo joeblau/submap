@@ -1,17 +1,13 @@
-//
-//  CurrentWeather+.swift
-//  Submap
-//
-//  Created by Joe Blau on 11/13/23.
-//
+// CurrentWeather+.swift
+// Copyright (c) 2024 Submap
 
 import Foundation
 import WeatherKit
 
 extension CurrentWeather: Structurable {
-    var data: [String : String] {
+    var data: [String: String] {
         var weatherInfo: [String: String] = .init()
-        
+
         weatherInfo["Apparent Temperature"] = apparentTemperature.description
         weatherInfo["Dew Point"] = dewPoint.description
         weatherInfo["Humidity"] = humidity.description
@@ -27,10 +23,10 @@ extension CurrentWeather: Structurable {
         weatherInfo["UV Index"] = uvIndex.category.description
         weatherInfo["Weather Visiblity"] = visibility.description
         weatherInfo["Precipitation Intensity"] = precipitationIntensity.description
-        
+
         return weatherInfo
     }
-    
+
     var prompt: String {
         """
         # My Contact Information

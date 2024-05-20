@@ -165,8 +165,8 @@ import UIKit
         self.photoOutput = photoOutput
         self.videoOutput = videoOutput
 
-        photoOutput.isHighResolutionCaptureEnabled = true
-        photoOutput.maxPhotoQualityPrioritization = .quality
+//        photoOutput.isHighResolutionCaptureEnabled = true
+        photoOutput.maxPhotoQualityPrioritization = .speed
 
         updateVideoOutputConnection()
 
@@ -314,16 +314,19 @@ import UIKit
 
             let isFlashAvailable = self.deviceInput?.device.isFlashAvailable ?? false
             photoSettings.flashMode = isFlashAvailable ? .auto : .off
-            photoSettings.isHighResolutionPhotoEnabled = true
+//            photoSettings.isHighResolutionPhotoEnabled = true
             if let previewPhotoPixelFormatType = photoSettings.availablePreviewPhotoPixelFormatTypes.first {
                 photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: previewPhotoPixelFormatType]
             }
             photoSettings.photoQualityPrioritization = .balanced
 
             if let photoOutputVideoConnection = photoOutput.connection(with: .video) {
-                if photoOutputVideoConnection.isVideoOrientationSupported {
-                    photoOutputVideoConnection.videoOrientation = .portrait
+                if photoOutputVideoConnection.isVideoRotationAngleSupported(90) {
+                    photoOutputVideoConnection.videoRotationAngle = 90
                 }
+//                if photoOutputVideoConnection.isVideoOrientationSupported {
+//                    photoOutputVideoConnection.videoOrientation = .portrait
+//                }
             }
 
             photoOutput.capturePhoto(with: photoSettings, delegate: self)
@@ -348,9 +351,12 @@ extension Camera: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = sampleBuffer.imageBuffer else { return }
 
-        if connection.isVideoOrientationSupported {
-            connection.videoOrientation = .portrait
+        if connection.isVideoRotationAngleSupported(90) {
+            connection.videoRotationAngle = 90
         }
+//        if connection.isVideoOrientationSupported {
+//            connection.videoOrientation = .portrait
+//        }
 
         addToPreviewStream?(CIImage(cvPixelBuffer: pixelBuffer))
     }

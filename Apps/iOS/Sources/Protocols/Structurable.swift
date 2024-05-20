@@ -1,9 +1,5 @@
-//
-//  Structurable.swift
-//  Submap
-//
-//  Created by Joe Blau on 5/19/24.
-//
+// Structurable.swift
+// Copyright (c) 2024 Submap
 
 import Foundation
 

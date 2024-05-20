@@ -1,17 +1,13 @@
-//
-//  CLPlacemark+.swift
-//  Submap
-//
-//  Created by Joe Blau on 11/13/23.
-//
+// CLPlacemark+.swift
+// Copyright (c) 2024 Submap
 
-import Foundation
 import CoreLocation
+import Foundation
 
 extension CLPlacemark: Structurable {
-    var data: [String : String] {
+    var data: [String: String] {
         var placemarkInfo: [String: String] = .init()
-        
+
         name.map { placemarkInfo["Name"] = $0 }
         thoroughfare.map { placemarkInfo["Thoroughfare"] = $0 }
         subThoroughfare.map { placemarkInfo["Sub Thoroughfare"] = $0 }
@@ -26,10 +22,10 @@ extension CLPlacemark: Structurable {
         inlandWater.map { placemarkInfo["Inland Water"] = $0 }
         ocean.map { placemarkInfo["Ocean"] = $0 }
         areasOfInterest.map { placemarkInfo["Areas Of Interest"] = $0.joined(separator: ", ") }
-        
+
         return placemarkInfo
     }
-    
+
     var prompt: String {
         """
         # My Placemark

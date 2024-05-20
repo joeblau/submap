@@ -4,23 +4,24 @@
 import SwiftUI
 
 struct DeviceView: View {
+    @State private var showPopover = false
+    @Environment(\.device) var device
+
     var body: some View {
-        Menu {
-            Section("iPhone") {
-                Button("WiFi Enabled", action: {})
-            }
-            Divider()
-            Section("Apple Watch") {
-                Button("55 bpm Heart Rate", action: {})
-            }
-            Divider()
-            Section("Mac") {
-                Button("Locked", action: {})
-            }
-        } label: {
+        Button { self.showPopover = true } label: {
             Image(systemName: "macbook.and.iphone")
-        }
-        .buttonStyle(MaterialButtonStyle(active: .constant(false)))
+        }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
+            .popover(isPresented: $showPopover, arrowEdge: .leading) {
+                NavigationStack {
+                    List {
+                        Section("Device") {
+                            ForEach(UIDevice.current.data.sorted(by: >), id: \.key) { key, value in
+                                LabeledContent(key, value: value)
+                            }
+                        }
+                    }
+                }
+            }
     }
 }
 
