@@ -8,6 +8,7 @@ struct SubmapView: View {
     @Environment(\.camera) var camera
 
     @FocusState private var keyboardFocused: Bool
+
     @State var text: String = ""
     @State private var isResponsePresented: Bool = false
     @State private var isOnboardPresented: Bool = false
@@ -19,7 +20,9 @@ struct SubmapView: View {
                 .safeAreaInset(edge: .bottom, alignment: .center, spacing: 0) {
                     VStack(spacing: 0) {
                         HStack(alignment: .bottom) {
-                            Button {} label: {
+                            Button {
+                                isOnboardPresented = true
+                            } label: {
                                 Image(systemName: "switch.2")
                             }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
                             Button {} label: {
