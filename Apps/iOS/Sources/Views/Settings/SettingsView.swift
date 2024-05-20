@@ -7,10 +7,11 @@ struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.location) var location
     @Environment(\.contacts) var contacts
+    @Environment(\.events) var events
     @Environment(\.camera) var camera
 
     @State private var isContactPickerPresented: Bool = false
-    
+
     @State var motionActivity = false
     @State var health = false
     @State var microphone = false
@@ -22,6 +23,7 @@ struct SettingsView: View {
         @Bindable var location = location
         @Bindable var contacts = contacts
         @Bindable var camera = camera
+        @Bindable var events = events
 
         NavigationView {
             Form {
@@ -49,6 +51,14 @@ struct SettingsView: View {
                         Label("Health", systemImage: "heart.fill")
                             .labelStyle(SettingLabelStyle(fill: Color.mint.gradient))
                     }).disabled(true)
+                    Toggle(isOn: $events.isCalendarOn, label: {
+                        Label("Calendar", systemImage: "calendar")
+                            .labelStyle(SettingLabelStyle(fill: Color.mint.gradient))
+                    })
+                    Toggle(isOn: $events.isReminderOn, label: {
+                        Label("Reminders", systemImage: "checklist")
+                            .labelStyle(SettingLabelStyle(fill: Color.mint.gradient))
+                    })
                 } header: {
                     Label("Human", systemImage: "figure.arms.open")
                 }
@@ -111,6 +121,14 @@ struct SettingsView: View {
                     guard await camera.checkAuthorization() else { return }
                     await camera.start()
                 }
+            }
+            .onChange(of: events.isCalendarOn) { _, newValue in
+                guard newValue == true else { return }
+                events.requestEventAccess()
+            }
+            .onChange(of: events.isReminderOn) { _, newValue in
+                guard newValue == true else { return }
+                events.requestReminderAccess()
             }
             .sheet(isPresented: $isContactPickerPresented) {
                 ContactPicker(selectedContact: $contacts.selected)
