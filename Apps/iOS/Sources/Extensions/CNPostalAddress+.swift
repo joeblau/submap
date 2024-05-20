@@ -1,12 +1,8 @@
-//
-//  CNPostalAddress+.swift
-//  Submap
-//
-//  Created by Joe Blau on 11/12/23.
-//
+// CNPostalAddress+.swift
+// Copyright (c) 2024 Submap
 
-import Foundation
 import Contacts
+import Foundation
 
 extension CNPostalAddress {
     func formattedAddress() -> String {

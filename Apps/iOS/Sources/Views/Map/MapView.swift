@@ -6,6 +6,7 @@ import SwiftUI
 
 struct MapView: View {
     @Environment(\.location) private var location
+    @Environment(\.weather) private var weather
 
     @State var isWeatherPresented: Bool = false
     @State var canZoom = false
@@ -46,6 +47,7 @@ struct MapView: View {
         withAnimation {
             position = .camera(MapCamera(centerCoordinate: location.currentLocation.coordinate,
                                          distance: 1000))
+            weather.weather(for: location.currentLocation)
         }
     }
 }

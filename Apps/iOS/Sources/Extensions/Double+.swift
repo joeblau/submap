@@ -1,9 +1,5 @@
-//
-//  Double+.swift
-//  Submap
-//
-//  Created by Joe Blau on 11/12/23.
-//
+// Double+.swift
+// Copyright (c) 2024 Submap
 
 import Foundation
 

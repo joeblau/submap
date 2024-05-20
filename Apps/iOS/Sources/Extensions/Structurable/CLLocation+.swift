@@ -1,15 +1,11 @@
-//
-//  CLLocation+.swift
-//  Submap
-//
-//  Created by Joe Blau on 11/13/23.
-//
+// CLLocation+.swift
+// Copyright (c) 2024 Submap
 
-import Foundation
 import CoreLocation
+import Foundation
 
 extension CLLocation: Structurable {
-    var data: [String : String] {
+    var data: [String: String] {
         [
             "Altitude": altitude.description,
             "Ellipsoidal Altitude": ellipsoidalAltitude.description,
@@ -21,10 +17,10 @@ extension CLLocation: Structurable {
             "Horizontal Accuracy": horizontalAccuracy.description,
             "Longitude": coordinate.longitude.description,
             "Vertical Accuracy": verticalAccuracy.description,
-            "Building Floor": floor?.description ?? ""
+            "Building Floor": floor?.description ?? "",
         ]
     }
-    
+
     var prompt: String {
         """
         # My Location
