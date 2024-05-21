@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct SubmapView: View {
-    @Environment(\.openAI) var openAI
+    @Environment(\.chatGPT) var chatGPT
     @Environment(\.location) var location
     @Environment(\.camera) var camera
 
@@ -26,7 +26,9 @@ struct SubmapView: View {
                             } label: {
                                 Image(systemName: "switch.2")
                             }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
-                            Button {} label: {
+                            Button {
+                                chatGPT.prompt()
+                            } label: {
                                 Image(systemName: "brain.fill")
                                     .frame(maxWidth: .infinity)
                             }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
