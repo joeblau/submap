@@ -22,6 +22,8 @@ struct NetworkView: View {
                             }
                         }
                     }
+                    .toolbarTitleDisplayMode(.inlineLarge)
+                    .navigationTitle("Remove Devices")
                 }
             }
     }

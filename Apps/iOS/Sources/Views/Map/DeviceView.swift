@@ -19,13 +19,14 @@ struct DeviceView: View {
                                 LabeledContent(key, value: value)
                             }
                         }
-                        
                         Section("Calendar") {
                             ForEach(Calendar.current.data.sorted(by: <), id: \.key) { key, value in
                                 LabeledContent(key, value: value)
                             }
                         }
                     }
+                    .toolbarTitleDisplayMode(.inlineLarge)
+                    .navigationTitle("My Devices")
                 }
             }
     }

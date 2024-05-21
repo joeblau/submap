@@ -4,6 +4,7 @@
 import SwiftUI
 
 struct SubmapView: View {
+    @Environment(\.openAI) var openAI
     @Environment(\.location) var location
     @Environment(\.camera) var camera
 

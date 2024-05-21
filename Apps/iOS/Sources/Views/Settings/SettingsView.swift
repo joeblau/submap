@@ -25,7 +25,7 @@ struct SettingsView: View {
         @Bindable var camera = camera
         @Bindable var events = events
 
-        NavigationView {
+        NavigationStack {
             Form {
                 Section {
                     LabeledContent {

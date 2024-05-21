@@ -18,6 +18,10 @@ schemes:
     run:
       environmentVariables:
         IDEPreferLogStreaming: YES
+packages:
+  swift-dotenv:
+    url: https://github.com/thebarndog/swift-dotenv.git
+    from: 2.0.0
 targets:
   Submap:
     type: application
@@ -28,6 +32,10 @@ targets:
           - Apps/iOS/PreviewContent/*
       - path: Apps/iOS/Resources/
         buildPhase: resources
+      - path: .
+        includes:
+          - .env
+        buildPhase: resources
     settings:
       DEVELOPMENT_ASSET_PATHS: Apps/iOS/PreviewContent
       PRODUCT_BUNDLE_IDENTIFIER: com.joeblau.Submap
@@ -37,6 +45,9 @@ targets:
       INFOPLIST_KEY_UILaunchScreen_Generation: true
       GENERATE_INFOPLIST_FILE: true
       VALIDATE_WORKSPACE: true
+    dependencies:
+      - package: swift-dotenv
+        product: SwiftDotenv
   UnitTests:
     type: bundle.unit-test
     platform: iOS

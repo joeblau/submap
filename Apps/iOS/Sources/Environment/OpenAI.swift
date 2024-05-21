@@ -2,9 +2,10 @@
 // Copyright (c) 2024 Submap
 
 import CoreLocation
+import SwiftDotenv
 import SwiftUI
 
-@Observable class OpenAI {
+@Observable class OpenAI: NSObject {
     func prompt(placemark: CLPlacemark?,
                 location: CLLocation) async throws
     {
@@ -20,6 +21,17 @@ import SwiftUI
             """
 
         print(promptText)
+    }
+
+    override init() {
+        super.init()
+        do {
+            let path = Bundle.main.path(forResource: ".env", ofType: nil)!
+            try Dotenv.configure(atPath: path)
+
+        } catch {
+            fatalError("need to add a .env with an OpenAI key")
+        }
     }
 }
 

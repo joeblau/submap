@@ -17,3 +17,9 @@ brew bundle --file=./.github/Brewfile
 # Start Project
 xcodegen
 ```
+
+Add `.env` with API KEYS
+
+```dotenv
+OPENAI_API_KEY=""
+```
