@@ -68,6 +68,8 @@ struct HumanView: View {
                             }
                         }
                     }
+                    .toolbarTitleDisplayMode(.inlineLarge)
+                    .navigationTitle("Human")
                 }
             }
     }

@@ -25,7 +25,7 @@ struct MapView: View {
                 }
                 Spacer()
                 VStack {
-                    Button {} label: {
+                    Button { updateView() } label: {
                         Image(systemName: "scope")
                     }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
                 }

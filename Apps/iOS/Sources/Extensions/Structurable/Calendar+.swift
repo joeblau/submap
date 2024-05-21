@@ -1,4 +1,4 @@
-// Date+.swift
+// Calendar+.swift
 // Copyright (c) 2024 Submap
 
 import Foundation
@@ -45,7 +45,6 @@ extension Calendar: Structurable {
         """
     }
 }
-
 
 extension Calendar.Identifier: CustomStringConvertible {
     public var description: String {
