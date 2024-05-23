@@ -6,34 +6,26 @@ import OpenAI
 import SwiftUI
 
 @Observable class ChatGPT {
-    let openAI: OpenAI = .init(configuration: .init(token: "", host: "localhost", port: 8787, scheme: "http"))
+    let decoder = JSONDecoder()
+    let openAI: OpenAI = .init(configuration: .init(token: "", host: "openai-proxy.api.submap.com"))
 
-//    func prompt(placemark: CLPlacemark?,
-//                location: CLLocation) async throws
-//    {
-    func prompt() {
+    func prompt(prompt: AIPrompt) {
+        let query = ChatQuery(messages: [
+            .init(role: .system, content: prompt.system)!,
+            .init(role: .user, content: prompt.user)!,
+        ],
+        model: .gpt4_o)
+        
         Task {
             do {
-                //        let promptText =
-                //            """
-                //            \(Prompt.prefix(desire: ""))
-                //
-                //            \(placemark?.prompt ?? "")
-                //
-                //            \(location.prompt)
-                //
-                //            \(Prompt.suffix())
-                //            """
-                //
-                //        print(promptText)
-
-                let query = ChatQuery(messages: [
-                    .init(role: .user, content: "what is 1 + 1")!,
-                ],
-                model: .gpt4_o)
-
                 let result = try await openAI.chats(query: query)
-                print(result)
+                guard let resultString = result.choices.first?.message.content?.string?.components(separatedBy: .newlines).filter({ !$0.trimmingCharacters(in: CharacterSet.whitespaces).hasPrefix("```") }).joined(separator: "\n"),
+                    let resultData = resultString.data(using: .utf8) else {
+                    return
+                }
+                print(resultString)
+                let response = try decoder.decode(AIResponse.self, from: resultData)
+                print(response)
             } catch {
                 print(error)
             }

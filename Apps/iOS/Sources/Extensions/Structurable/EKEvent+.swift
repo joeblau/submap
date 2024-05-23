@@ -21,6 +21,8 @@ extension EKEvent: Structurable {
     var data: [String: String] {
         var eventInfo: [String: String] = .init()
 
+        eventInfo["Title"] = title
+        eventInfo["Description"] = description
         eventInfo["Event Identifier"] = eventIdentifier
         eventInfo["Event Availiblity"] = availability.description
         eventInfo["Start Date"] = startDate.formatted()
