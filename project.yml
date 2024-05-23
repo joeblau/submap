@@ -19,9 +19,6 @@ schemes:
       environmentVariables:
         IDEPreferLogStreaming: YES
 packages:
-  swift-dotenv:
-    url: https://github.com/thebarndog/swift-dotenv.git
-    from: 2.0.0
   openai:
     url: https://github.com/MacPaw/OpenAI.git
     from: 0.2.9
@@ -49,8 +46,6 @@ targets:
       GENERATE_INFOPLIST_FILE: true
       VALIDATE_WORKSPACE: true
     dependencies:
-      - package: swift-dotenv
-        product: SwiftDotenv
       - package: openai
         product: OpenAI
   UnitTests:

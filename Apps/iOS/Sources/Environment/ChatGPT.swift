@@ -3,11 +3,10 @@
 
 import CoreLocation
 import OpenAI
-import SwiftDotenv
 import SwiftUI
 
-@Observable class ChatGPT: NSObject {
-    let openAI: OpenAI
+@Observable class ChatGPT {
+    let openAI: OpenAI = .init(configuration: .init(token: "", host: "localhost", port: 8787, scheme: "http"))
 
 //    func prompt(placemark: CLPlacemark?,
 //                location: CLLocation) async throws
@@ -39,20 +38,6 @@ import SwiftUI
                 print(error)
             }
         }
-    }
-
-    override init() {
-        do {
-            let path = Bundle.main.path(forResource: ".env", ofType: nil)!
-            try Dotenv.configure(atPath: path)
-            guard let apiToken = Dotenv.openaiApiKey?.stringValue else {
-                fatalError("need to add a .env with an OpenAI key")
-            }
-            openAI = OpenAI(apiToken: apiToken)
-        } catch {
-            fatalError("need to add a .env with an OpenAI key")
-        }
-        super.init()
     }
 }
 
