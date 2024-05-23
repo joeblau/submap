@@ -1,9 +1,5 @@
-//
-//  AIPrompt.swift
-//  Submap
-//
-//  Created by Joe Blau on 5/23/24.
-//
+// AIPrompt.swift
+// Copyright (c) 2024 Submap
 
 import SwiftUI
 
@@ -11,15 +7,15 @@ struct AIPrompt {
     var user: String
     var location: Location
     var events: Events
-    
+
     var system: String {
         """
         You are a personal assistant designed to help find the best
         answer to any questions.
-        
+
         The response should be a json file populating fields that are
         relevent to the response.
-        
+
         interface ApiResponse {
           response: string;
           card?: {
@@ -29,14 +25,20 @@ struct AIPrompt {
             };
             list?: Array<{
               title: string;
-              time?: Date;
+              date?: Date;
             }>;
+            email?: {
+              from: string;
+              to: string;
+              subject: string;
+              message: string;
+            }
           };
         }
-        
+
         The information below are all truthful facts about the state
         of the world:
-        
+
         \(Calendar.current.prompt)
         \(location.currentLocation.prompt)
         \(events.calendars.prompt)
@@ -44,5 +46,4 @@ struct AIPrompt {
         \(events.reminders.prompt)
         """
     }
-
 }

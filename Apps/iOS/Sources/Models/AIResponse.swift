@@ -1,9 +1,5 @@
-//
-//  AIResponse.swift
-//  Submap
-//
-//  Created by Joe Blau on 5/23/24.
-//
+// AIResponse.swift
+// Copyright (c) 2024 Submap
 
 import Foundation
 
@@ -15,6 +11,7 @@ struct AIResponse: Codable {
 struct AICard: Codable {
     var coord: AICoordinate?
     var list: [AIListItem]?
+    var email: AIEmail?
 }
 
 struct AICoordinate: Codable {
@@ -25,4 +22,11 @@ struct AICoordinate: Codable {
 struct AIListItem: Codable {
     var title: String
     var date: Date
+}
+
+struct AIEmail: Codable {
+    var from: String
+    var to: String
+    var subject: String
+    var message: String
 }

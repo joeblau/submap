@@ -11,14 +11,25 @@ struct SubmapView: View {
 
     @FocusState private var keyboardFocused: Bool
 
-    @State var text: String = ""
+    @State var textPrompt: String = ""
     @State private var isResponsePresented: Bool = false
     @State private var isOnboardPresented: Bool = false
 
     var body: some View {
         NavigationStack {
             CameraView()
-                .overlay {}
+                .overlay {
+                    TextEditor(text: $textPrompt)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .disabled(true)
+                        .scrollContentBackground(.hidden)
+                        .font(.system(size: 22, weight: .heavy, design: .rounded))
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.white)
+                        .focused($keyboardFocused)
+                        .environment(\.colorScheme, .dark)
+                        .shadow(radius: 4)
+                }
                 .safeAreaInset(edge: .bottom, alignment: .center, spacing: 0) {
                     VStack(spacing: 0) {
                         HStack(alignment: .bottom) {
@@ -28,7 +39,9 @@ struct SubmapView: View {
                                 Image(systemName: "switch.2")
                             }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
                             Button {
-//                                chatGPT.prompt(prompt: AIPrompt(user: "What is on my calendar for today?", location: location, events: events))
+                                chatGPT.prompt(prompt: AIPrompt(user: textPrompt, location: location, events: events))
+                                textPrompt = ""
+                                keyboardFocused = false
                             } label: {
                                 Image(systemName: "brain.fill")
                                     .frame(maxWidth: .infinity)
@@ -49,11 +62,15 @@ struct SubmapView: View {
                     }
                 }
                 .toolbar(content: {
-//                    ToolbarItem(placement: .topBarLeading) {
-//                        Button {} label: {
-//                            Image(systemName: "eraser.fill")
-//                        }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
-//                    }
+                    ToolbarItem(placement: .topBarLeading) {
+                        let disable = textPrompt.isEmpty
+
+                        Button {} label: {
+                            Image(systemName: "eraser.fill")
+                        }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
+                            .disabled(disable)
+                            .opacity(disable ? 0.0 : 1)
+                    }
 //                    ToolbarItem(placement: .topBarTrailing) {
 //                        ProgressView()
 //                    }
