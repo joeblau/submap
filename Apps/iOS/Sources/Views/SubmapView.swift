@@ -6,6 +6,7 @@ import SwiftUI
 struct SubmapView: View {
     @Environment(\.chatGPT) var chatGPT
     @Environment(\.location) var location
+    @Environment(\.events) var events
     @Environment(\.camera) var camera
 
     @FocusState private var keyboardFocused: Bool
@@ -27,7 +28,7 @@ struct SubmapView: View {
                                 Image(systemName: "switch.2")
                             }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
                             Button {
-                                chatGPT.prompt()
+//                                chatGPT.prompt(prompt: AIPrompt(user: "What is on my calendar for today?", location: location, events: events))
                             } label: {
                                 Image(systemName: "brain.fill")
                                     .frame(maxWidth: .infinity)
