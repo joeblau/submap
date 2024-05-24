@@ -1,9 +1,9 @@
-// NetworkView.swift
+// RemoteDeviceView.swift
 // Copyright (c) 2024 Submap
 
 import SwiftUI
 
-struct NetworkView: View {
+struct RemoteDeviceView: View {
     @State private var showPopover = false
     @Environment(\.weather) private var weather
 
@@ -24,12 +24,12 @@ struct NetworkView: View {
                     }
                     .headerProminence(.increased)
                     .toolbarTitleDisplayMode(.inlineLarge)
-                    .navigationTitle("Remove Devices")
+                    .navigationTitle("Remote Devices")
                 }
             }
     }
 }
 
 #Preview {
-    NetworkView()
+    RemoteDeviceView()
 }

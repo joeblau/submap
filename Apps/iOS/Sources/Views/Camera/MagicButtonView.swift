@@ -82,7 +82,7 @@ struct MagicButtonView: View {
             .debounce(for: .seconds(0.7), scheduler: DispatchQueue.main)
             .sink { value in
                 self.textPrompt = value
-                
+
                 self.action()
             }
             .store(in: &cancellables)
