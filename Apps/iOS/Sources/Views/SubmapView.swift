@@ -5,9 +5,11 @@ import SwiftUI
 
 struct SubmapView: View {
     @Environment(\.chatGPT) var chatGPT
+    @Environment(\.llama) var llama
     @Environment(\.location) var location
     @Environment(\.events) var events
     @Environment(\.camera) var camera
+    @Environment(\.settings) var settings
 
     @FocusState private var keyboardFocused: Bool
 
@@ -40,9 +42,13 @@ struct SubmapView: View {
                             }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
 
                             MagicButtonView(action: {
-                                                chatGPT.prompt(prompt: AIPrompt(user: textPrompt,
-                                                                                location: location,
-                                                                                events: events))
+                                                let prompt = AIPrompt(user: textPrompt,
+                                                                      location: location,
+                                                                      events: events)
+                                                switch settings.mlModel {
+                                                case .llama: llama.prompt(prompt: prompt)
+                                                case .chatGPT: chatGPT.prompt(prompt: prompt)
+                                                }
                                                 textPrompt = ""
                                                 keyboardFocused = false
                                             },

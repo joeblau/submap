@@ -73,6 +73,7 @@ struct MagicButtonView: View {
         audio.stopRecording()
 
         audio.audioURLSubject
+            .debounce(for: .seconds(0.7), scheduler: DispatchQueue.main)
             .sink { url in
                 self.speech.recognizeSpeech(url: url)
             }
@@ -81,8 +82,9 @@ struct MagicButtonView: View {
         speech.transcriptionSubject
             .debounce(for: .seconds(0.7), scheduler: DispatchQueue.main)
             .sink { value in
-                self.textPrompt = value
-
+                if !value.isEmpty {
+                    self.textPrompt = value
+                }
                 self.action()
             }
             .store(in: &cancellables)
