@@ -1,9 +1,9 @@
-// DeviceView.swift
+// MyDeviceView.swift
 // Copyright (c) 2024 Submap
 
 import SwiftUI
 
-struct DeviceView: View {
+struct MyDeviceView: View {
     @State private var showPopover = false
     @Environment(\.device) var device
 
@@ -34,5 +34,5 @@ struct DeviceView: View {
 }
 
 #Preview {
-    DeviceView()
+    MyDeviceView()
 }

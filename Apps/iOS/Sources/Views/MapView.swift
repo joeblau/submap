@@ -20,8 +20,8 @@ struct MapView: View {
             HStack(alignment: .top) {
                 VStack {
                     HumanView()
-                    DeviceView()
-                    NetworkView()
+                    MyDeviceView()
+                    RemoteDeviceView()
                 }
                 Spacer()
                 VStack {

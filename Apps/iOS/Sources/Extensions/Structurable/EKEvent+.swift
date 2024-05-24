@@ -23,12 +23,12 @@ extension EKEvent: Structurable {
 
         eventInfo["Title"] = title
         eventInfo["Description"] = description
-        
-        attendees.map { $0 }?.enumerated().forEach({ (index, parcicipant) in
+
+        attendees.map { $0 }?.enumerated().forEach { index, parcicipant in
             eventInfo["Participant Name: \(index)"] = parcicipant.name
             eventInfo["Participant URL: \(index)"] = parcicipant.url.absoluteString
-        })
-            
+        }
+
         eventInfo["Event Identifier"] = eventIdentifier
         eventInfo["Event Availiblity"] = availability.description
         eventInfo["Start Date"] = startDate.formatted()
