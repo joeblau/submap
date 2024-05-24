@@ -10,7 +10,7 @@ enum MLModel: Int, CaseIterable, Identifiable, CustomStringConvertible {
 
     var description: String {
         switch self {
-        case .llama: "llama-3-8b"
+        case .llama: "llama-3-70b"
         case .chatGPT: "gpt4_0"
         }
     }

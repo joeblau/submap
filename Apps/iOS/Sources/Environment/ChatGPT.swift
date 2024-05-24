@@ -6,14 +6,12 @@ import OpenAI
 import SwiftUI
 
 @Observable class ChatGPT {
-    let decoder = JSONDecoder()
     var chatResults: [ChatResult] = .init()
     var computeState: ComputeState = .idle
     let openAI: OpenAI = .init(configuration: .init(token: "", host: "openai-proxy.api.submap.com"))
 
     func prompt(prompt: AIPrompt) {
         computeState = .thinking
-        decoder.dateDecodingStrategy = .iso8601
 
         let query = ChatQuery(messages: [
             .init(role: .system, content: prompt.system)!,

@@ -51,6 +51,7 @@ import SwiftUI
         recognizer.recognitionTask(with: request) { result, error in
             if let error = error {
                 print("There was an error: \(error)")
+                self.transcriptionSubject.send("")
             } else if let result = result {
                 self.transcriptionSubject.send(result.bestTranscription.formattedString)
             }

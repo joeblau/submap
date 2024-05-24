@@ -19,7 +19,6 @@ struct RemoteDevicesSectionView: View {
                     .labelStyle(SettingLabelStyle(fill: Color.indigo.gradient))
             }
 
-//
 //            Button {} label: {
 //                LabeledContent {
 //                    Text("Tesla")
@@ -34,15 +33,6 @@ struct RemoteDevicesSectionView: View {
 //                } label: {
 //                    Label("Home", systemImage: "house.fill")
 //                        .labelStyle(SettingLabelStyle(fill: Color.purple.gradient))
-//                }
-//            }.disabled(true)
-//
-//            Picker
-//            Button {} label: {
-//                LabeledContent {
-//                    Text("ChatGPT")
-//                } label: {
-//
 //                }
 //            }.disabled(true)
         } header: {
