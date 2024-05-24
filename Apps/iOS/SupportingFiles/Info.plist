@@ -18,9 +18,11 @@
 		<string>location</string>
 	</array>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Submap needs to hear</string>
+	<string>Submap needs to hear and speak</string>
 	<key>NSRemindersUsageDescription</key>
 	<string>Submap needs to know what to remind you about</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Submap needs to transcribe your speech</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Submap needs its health status</string>
 </dict>
