@@ -8,8 +8,8 @@ extension EKParticipant: Structurable {
     var data: [String: String] {
         var participantInfo: [String: String] = .init()
 
-        participantInfo["Is Current User"] = isCurrentUser.description
         name.map { participantInfo["Name"] = $0 }
+        participantInfo["Is Current User"] = isCurrentUser.description
         participantInfo["Participant Role"] = participantRole.description
         participantInfo["Participant Status"] = participantStatus.description
         participantInfo["Participant Type"] = participantType.description

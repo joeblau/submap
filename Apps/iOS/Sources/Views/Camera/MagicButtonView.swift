@@ -79,9 +79,10 @@ struct MagicButtonView: View {
             .store(in: &cancellables)
 
         speech.transcriptionSubject
-            .debounce(for: .seconds(0.3), scheduler: DispatchQueue.main)
+            .debounce(for: .seconds(0.7), scheduler: DispatchQueue.main)
             .sink { value in
                 self.textPrompt = value
+                
                 self.action()
             }
             .store(in: &cancellables)
