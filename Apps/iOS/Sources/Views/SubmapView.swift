@@ -38,14 +38,16 @@ struct SubmapView: View {
                             } label: {
                                 Image(systemName: "switch.2")
                             }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
-                            Button {
-                                chatGPT.prompt(prompt: AIPrompt(user: textPrompt, location: location, events: events))
-                                textPrompt = ""
-                                keyboardFocused = false
-                            } label: {
-                                Image(systemName: "brain.fill")
-                                    .frame(maxWidth: .infinity)
-                            }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
+
+                            MagicButtonView(action: {
+                                                chatGPT.prompt(prompt: AIPrompt(user: textPrompt,
+                                                                                location: location,
+                                                                                events: events))
+                                                textPrompt = ""
+                                                keyboardFocused = false
+                                            },
+                                            textPrompt: $textPrompt,
+                                            keyboardFocused: _keyboardFocused)
                             Button {
                                 withAnimation { keyboardFocused.toggle() }
                             } label: {
@@ -53,7 +55,7 @@ struct SubmapView: View {
                                     Image(systemName: "keyboard.fill")
                                     Image(systemName: "hand.draw.fill")
                                 }
-                            }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
+                            }.buttonStyle(MaterialButtonStyle(active: .constant(keyboardFocused)))
                             Button {} label: {
                                 Image(systemName: "arrow.triangle.2.circlepath.camera.fill")
                             }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
@@ -71,9 +73,19 @@ struct SubmapView: View {
                             .disabled(disable)
                             .opacity(disable ? 0.0 : 1)
                     }
-//                    ToolbarItem(placement: .topBarTrailing) {
-//                        ProgressView()
-//                    }
+
+                    ToolbarItem(placement: .topBarTrailing) {
+                        switch chatGPT.computeState {
+                        case .idle, .error: EmptyView()
+                        case .thinking: ProgressView().tint(.white).shadow(radius: 4).padding()
+                        case .result:
+                            Button {
+                                isResponsePresented = true
+                            } label: {
+                                Text(chatGPT.chatResults.count.description)
+                            }.buttonStyle(MaterialButtonStyle(active: .constant(false)))
+                        }
+                    }
                 })
                 .toolbarBackground(.hidden, for: .navigationBar)
                 .ignoresSafeArea(.keyboard)
@@ -85,6 +97,12 @@ struct SubmapView: View {
                 isOnboardPresented = true
             }
             location.start()
+        })
+        .sheet(isPresented: $isResponsePresented, onDismiss: {
+            chatGPT.reset()
+            keyboardFocused = false
+        }, content: {
+            ResultView()
         })
         .fullScreenCover(isPresented: $isOnboardPresented, content: {
             SettingsView()

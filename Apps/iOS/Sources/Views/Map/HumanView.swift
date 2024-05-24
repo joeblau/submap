@@ -57,7 +57,6 @@ struct HumanView: View {
                                 }
                             }
                         }
-
                         Section("Reminders") {
                             ForEach(events.reminders.dataList, id: \.self) { data in
                                 Group {
@@ -68,6 +67,7 @@ struct HumanView: View {
                             }
                         }
                     }
+                    .headerProminence(.increased)
                     .toolbarTitleDisplayMode(.inlineLarge)
                     .navigationTitle("Human")
                 }

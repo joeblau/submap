@@ -7,10 +7,12 @@ import SwiftUI
 
 @Observable class ChatGPT {
     let decoder = JSONDecoder()
-
+    var chatResults: [ChatResult] = .init()
+    var computeState: ComputeState = .idle
     let openAI: OpenAI = .init(configuration: .init(token: "", host: "openai-proxy.api.submap.com"))
 
     func prompt(prompt: AIPrompt) {
+        computeState = .thinking
         decoder.dateDecodingStrategy = .iso8601
 
         let query = ChatQuery(messages: [
@@ -22,17 +24,18 @@ import SwiftUI
         Task {
             do {
                 let result = try await openAI.chats(query: query)
-                guard let resultString = result.choices.first?.message.content?.string?.components(separatedBy: .newlines).filter({ !$0.trimmingCharacters(in: CharacterSet.whitespaces).hasPrefix("```") }).joined(separator: "\n"),
-                      let resultData = resultString.data(using: .utf8)
-                else {
-                    return
-                }
-                let response = try decoder.decode(AIResponse.self, from: resultData)
-                print(response)
+                chatResults.append(result)
+                computeState = .result
             } catch {
                 print(error)
+                computeState = .error
             }
         }
+    }
+
+    func reset() {
+        computeState = .idle
+        chatResults.removeAll(keepingCapacity: true)
     }
 }
 

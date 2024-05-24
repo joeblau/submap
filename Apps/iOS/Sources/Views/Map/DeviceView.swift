@@ -25,6 +25,7 @@ struct DeviceView: View {
                             }
                         }
                     }
+                    .headerProminence(.increased)
                     .toolbarTitleDisplayMode(.inlineLarge)
                     .navigationTitle("My Devices")
                 }
