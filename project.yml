@@ -6,7 +6,7 @@ settings:
 options:
   bundleIdPrefix: com.joeblau
   deploymentTarget:
-    iOS: "17.5"
+    iOS: "18"
   createIntermediateGroups: true
   preGenCommand: .github/scripts/pre.sh
   postGenCommand: .github/scripts/post.sh
