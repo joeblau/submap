@@ -14,10 +14,33 @@ struct SubmapView: View {
     @FocusState private var keyboardFocused: Bool
 
     @State var textPrompt: String = ""
+    @State private var isContactPickerPresented: Bool = false
     @State private var isResponsePresented: Bool = false
     @State private var isOnboardPresented: Bool = false
 
     var body: some View {
+        MainHudView()
+        .onAppear(perform: {
+            if !location.isOn
+                || !camera.isOn
+            {
+                isOnboardPresented = true
+            }
+            location.start()
+        })
+        .sheet(isPresented: $isResponsePresented, onDismiss: {
+            chatGPT.reset()
+            keyboardFocused = false
+        }, content: {
+            ResultView()
+        })
+        .fullScreenCover(isPresented: $isOnboardPresented, content: {
+            SettingsView(isContactPickerPresented: $isContactPickerPresented)
+        })
+    }
+    
+    @ViewBuilder
+    func MainHudView() -> some View {
         NavigationStack {
             CameraView()
                 .overlay {
@@ -96,23 +119,6 @@ struct SubmapView: View {
                 .toolbarBackground(.hidden, for: .navigationBar)
                 .ignoresSafeArea(.keyboard)
         }
-        .onAppear(perform: {
-            if !location.isOn
-                || !camera.isOn
-            {
-                isOnboardPresented = true
-            }
-            location.start()
-        })
-        .sheet(isPresented: $isResponsePresented, onDismiss: {
-            chatGPT.reset()
-            keyboardFocused = false
-        }, content: {
-            ResultView()
-        })
-        .fullScreenCover(isPresented: $isOnboardPresented, content: {
-            SettingsView()
-        })
     }
 }
 

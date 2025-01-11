@@ -5,11 +5,16 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.contacts) var contacts
+
+    @Binding var isContactPickerPresented: Bool
 
     var body: some View {
+        @Bindable var contacts = contacts
+
         NavigationStack {
             Form {
-                HumanSectionView()
+                HumanSectionView(isContactPickerPresented: $isContactPickerPresented)
                 MyDevicesSectionView()
                 RemoteDevicesSectionView()
             }
@@ -30,9 +35,12 @@ struct SettingsView: View {
             .toolbarTitleDisplayMode(.inlineLarge)
             .navigationTitle("Settings")
         }
+        .sheet(isPresented: $isContactPickerPresented) {
+            ContactPicker(selectedContact: $contacts.selected)
+        }
     }
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(isContactPickerPresented: .constant(false))
 }

@@ -7,9 +7,8 @@ struct HumanSectionView: View {
     @Environment(\.location) var location
     @Environment(\.contacts) var contacts
     @Environment(\.events) var events
-
-    @State private var isContactPickerPresented: Bool = false
-
+    @Binding var isContactPickerPresented: Bool
+    
     var body: some View {
         @Bindable var location = location
         @Bindable var contacts = contacts
@@ -62,12 +61,10 @@ struct HumanSectionView: View {
             guard newValue == true else { return }
             events.requestReminderAccess()
         }
-        .sheet(isPresented: $isContactPickerPresented) {
-            ContactPicker(selectedContact: $contacts.selected)
-        }
+
     }
 }
 
 #Preview {
-    HumanSectionView()
+    HumanSectionView(isContactPickerPresented: .constant(false))
 }
