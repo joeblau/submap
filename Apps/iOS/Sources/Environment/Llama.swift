@@ -1,12 +1,10 @@
 // Llama.swift
-// Copyright (c) 2024 Submap
+// Copyright (c) 2025 Submap
 
 import SwiftUI
 
 @Observable class Llama: NSObject {
-
-
-    func prompt(prompt: AIPrompt) {}
+    func prompt(prompt _: AIPrompt) {}
 }
 
 struct LlamaKey: EnvironmentKey {

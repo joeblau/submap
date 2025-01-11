@@ -1,5 +1,5 @@
 // MapView.swift
-// Copyright (c) 2024 Submap
+// Copyright (c) 2025 Submap
 
 import MapKit
 import SwiftUI
